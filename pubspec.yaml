@@ -1,5 +1,5 @@
-name: test1
-description: "A new Flutter project."
+name: CalBaht
+description: "Calculatrice et conversion Baht et Euro"
 publish_to: 'none'
 
 version: 1.0.0+1
