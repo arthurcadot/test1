@@ -2,11 +2,121 @@ import 'package:CalBaht/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
 
-void main() {
-    runApp(const MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Calculator_App(),
-    ));
+// Flutter code sample for [NavigationBar].
+
+void main() => runApp(const NavigationBarApp());
+
+class NavigationBarApp extends StatelessWidget {
+  const NavigationBarApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,  // Désactive le bandeau de débogage
+      theme: ThemeData(
+        useMaterial3: true,  // Active Material 3
+      ),
+      home: const NavigationExample(),
+    );
+  }
+}
+
+class NavigationExample extends StatefulWidget {
+  const NavigationExample({super.key});
+
+  @override
+  State<NavigationExample> createState() => _NavigationExampleState();
+}
+
+class _NavigationExampleState extends State<NavigationExample> {
+  int currentPageIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    return Scaffold(
+      bottomNavigationBar: NavigationBar(
+        onDestinationSelected: (int index) {
+          setState(() {
+            currentPageIndex = index;
+          });
+        },
+        indicatorColor: const Color.fromARGB(255, 255, 154, 59),
+        selectedIndex: currentPageIndex,
+        backgroundColor: Colors.black,
+        destinations: <Widget>[
+          NavigationDestination(
+            selectedIcon: Icon(Icons.calculate, color: Colors.white),
+            icon: Icon(Icons.calculate, color: Colors.white),
+            label: 'CalBaht',
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.note, color: Colors.white),
+            icon: Icon(Icons.note, color: Colors.white),
+            label: 'Mémo',
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.train, color: Colors.white),
+            icon: Icon(Icons.train, color: Colors.white),
+            label: 'Métro',
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.map, color: Colors.white),
+            icon: Icon(Icons.map, color: Colors.white),
+            label: 'Maps',
+          ),
+        ],
+      ),
+      body: <Widget>[
+
+        /// CalBaht page
+        Calculator_App(),
+
+        /// Mémo page
+        Container(
+          color: Colors.black, // Fond noir
+          child: ListView(
+            padding: EdgeInsets.all(8.0),
+            children: [
+              ...[["BAHT", "EURO"],["10฿", "0,25€"],["20฿", "0,50€"],["30฿", "0,75€"],["40฿", "1,00€"],["50฿", "1,25€"],["60฿", "1,50€"],["70฿", "1,75€"],["80฿", "2,00€"],["90฿", "2,25€"],["100฿", "2,50€"],["150฿", "3,75€"],["200฿", "5,00€"],["250฿", "6,25€"],["300฿", "7,50€"],["350฿", "8,75€"],["400฿", "10,00€"],["450฿", "11,25€"],["500฿", "12,50€"],["550฿", "13,75€"],["600฿", "15,00€"],["650฿", "16,25€"],["700฿", "17,50€"],["750฿", "18,75€"],["800฿", "20,00€"],["850฿", "21,25€"],["900฿", "22,50€"],["950฿", "23,75€"],["1000฿", "25,00€"],["2000฿", "50,00€"],
+              ].map((pair) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: pair.map((text) {
+                    return Text(
+                      text,
+                      style: TextStyle(
+                        fontSize: pair[0] == "BAHT" || pair[0] == "EURO" ? 24 : 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white, // Texte en blanc pour contraster avec le fond noir
+                      ),
+                    );
+                  }).toList(),
+                );
+              }).toList(),
+            ],
+          ),
+        ),
+
+        /// Métro page
+        Container(
+          color: Colors.black, // Fond noir
+          child: ListView(
+            //afficher une image 
+          ),
+        ),
+
+        /// Maps page
+        Container(
+          color: Colors.black, // Fond noir
+          child: ListView(
+            //afficher une image 
+          ),
+        ),
+
+      ][currentPageIndex],
+    );
+  }
 }
 
 class Calculator_App extends StatefulWidget {
@@ -155,39 +265,6 @@ class _Calculator_AppState extends State < Calculator_App > {
                 children: [
                   Positioned.fill(
                     child: Align(
-                      alignment: Alignment.topRight,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        reverse: true,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => PageDeux()),
-                              );
-                            });
-                          },
-                          style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                            backgroundColor: orangecolor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                          child: Text(
-                            "☰",
-                            style: const TextStyle(
-                              fontSize: 18,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned.fill(
-                    child: Align(
                       alignment: Alignment.bottomRight,
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
@@ -321,87 +398,6 @@ class _Calculator_AppState extends State < Calculator_App > {
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////Page 2
-
-class PageDeux extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Align(
-            alignment: Alignment.topRight,
-            child: Padding(
-              padding: const EdgeInsets.all(12),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Calculator_App()),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  backgroundColor: orangecolor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                child: Text(
-                  "✘",
-                  style: const TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          ...[
-            ["BAHT", "EURO"],
-            ["10฿", "0,25€"],
-            ["20฿", "0,50€"],
-            ["30฿", "0,75€"],
-            ["40฿", "1,00€"],
-            ["50฿", "1,25€"],
-            ["60฿", "1,50€"],
-            ["70฿", "1,75€"],
-            ["80฿", "2,00€"],
-            ["90฿", "2,25€"],
-            ["100฿", "2,50€"],
-            ["200฿", "5,00€"],
-            ["300฿", "7,50€"],
-            ["400฿", "10,00€"],
-            ["500฿", "12,50€"],
-            ["600฿", "15,00€"],
-            ["700฿", "17,50€"],
-            ["800฿", "20,00€"],
-            ["900฿", "22,50€"],
-            ["1000฿", "25,00€"],
-            ["2000฿", "50,00€"],
-          ].map((pair) {
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround, // Espacement horizontal
-              children: pair.map((text) {
-                return Text(
-                  text,
-                  style: TextStyle(
-                    fontSize: pair[0] == "BAHT" || pair[0] == "EURO" ? 24 : 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                );
-              }).toList(),
-            );
-          }).toList(),
-        ],
       ),
     );
   }
