@@ -2,7 +2,7 @@
     <application
         android:label="CalBaht"
         android:name="${applicationName}"
-        android:icon="@mipmap/logo_for_CalBaht">
+        android:icon="@mipmap/logo_for_calbaht">
         <activity
             android:name=".MainActivity"
             android:exported="true"
