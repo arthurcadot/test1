@@ -249,8 +249,6 @@ class _Calculator_AppState extends State < Calculator_App > {
     setState(() {});
   }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////Affichage page 1
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
